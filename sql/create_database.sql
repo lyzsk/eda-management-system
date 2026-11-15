@@ -1,0 +1,12 @@
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'ems') THEN
+        CREATE ROLE ems LOGIN PASSWORD 'ems';
+    END IF;
+END $$;
+
+SELECT 'CREATE DATABASE ems OWNER ems'
+WHERE NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'ems')\gexec
+
+ALTER ROLE ems WITH LOGIN PASSWORD 'ems';
+ALTER DATABASE ems OWNER TO ems;
