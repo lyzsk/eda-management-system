@@ -1,6 +1,8 @@
 package cn.sichu.system.eda.entity;
 
 import cn.sichu.common.base.BaseEntity;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,4 +34,7 @@ public class EdaTool extends BaseEntity {
     private Integer status;
 
     private LocalDateTime lastHeartbeat;
+
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
+    private Long serverId;
 }

@@ -64,6 +64,18 @@ const routes: RouteRecordRaw[] = [
                 component: () => import("@/views/eda/list/index.vue"),
                 meta: { title: "menu.edaList" },
             },
+            {
+                path: "eda/server",
+                name: "EdaServer",
+                component: () => import("@/views/eda/server/index.vue"),
+                meta: { title: "menu.edaServer" },
+            },
+            {
+                path: "eda/script",
+                name: "EdaScript",
+                component: () => import("@/views/eda/script/index.vue"),
+                meta: { title: "menu.edaScript" },
+            },
         ],
     },
     {

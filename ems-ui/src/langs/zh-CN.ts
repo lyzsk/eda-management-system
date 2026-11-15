@@ -26,6 +26,8 @@ export default {
         dict: "字典管理",
         eda: "EDA管理",
         edaList: "EDA列表",
+        edaServer: "服务器管理",
+        edaScript: "脚本管理",
         logout: "退出登录",
     },
     header: {

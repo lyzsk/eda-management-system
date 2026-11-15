@@ -89,7 +89,70 @@ export interface EdaTool {
     licenseStatus?: string;
     status: number;
     lastHeartbeat?: string;
+    serverId?: string;
     remark?: string;
+    createTime?: string;
+    updateTime?: string;
+}
+
+export interface EdaServer {
+    id: string;
+    serverCode: string;
+    serverName?: string;
+    host: string;
+    sshPort: number;
+    osType?: string;
+    username?: string;
+    connectTimeoutSeconds?: number;
+    status: number;
+    remark?: string;
+    createTime?: string;
+    updateTime?: string;
+}
+
+export interface EdaServerForm {
+    serverCode?: string;
+    serverName?: string;
+    host?: string;
+    sshPort?: number;
+    osType?: string;
+    username?: string;
+    connectTimeoutSeconds?: number;
+    status?: number;
+    remark?: string;
+}
+
+export interface EdaScript {
+    id: string;
+    toolId: string;
+    action: string;
+    scriptName: string;
+    execMode?: string;
+    command: string;
+    workdir?: string;
+    timeoutSeconds?: number;
+    enabled: number;
+    sortNo?: number;
+    remark?: string;
+    createTime?: string;
+    updateTime?: string;
+}
+
+export interface EdaScriptRun {
+    id: string;
+    runId: string;
+    scriptId: string;
+    toolId: string;
+    serverId: string;
+    action: string;
+    operatorName?: string;
+    status: string;
+    exitCode?: number;
+    output?: string;
+    errorMsg?: string;
+    sshHost?: string;
+    startedAt?: string;
+    finishedAt?: string;
     createTime?: string;
     updateTime?: string;
 }

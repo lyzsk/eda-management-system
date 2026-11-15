@@ -26,6 +26,7 @@
         <java.version>17</java.version>
         <mybatis-plus.version>3.5.18.1</mybatis-plus.version>
         <jjwt.version>0.12.7</jjwt.version>
+        <sshj.version>0.38.0</sshj.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -70,6 +71,11 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-jackson</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hierynomus</groupId>
+                <artifactId>sshj</artifactId>
+                <version>${sshj.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

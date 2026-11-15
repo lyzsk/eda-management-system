@@ -56,6 +56,14 @@
                             <el-icon><List /></el-icon>
                             <span>{{ t("menu.edaList") }}</span>
                         </el-menu-item>
+                        <el-menu-item index="/eda/server">
+                            <el-icon><Monitor /></el-icon>
+                            <span>{{ t("menu.edaServer") }}</span>
+                        </el-menu-item>
+                        <el-menu-item index="/eda/script">
+                            <el-icon><Tickets /></el-icon>
+                            <span>{{ t("menu.edaScript") }}</span>
+                        </el-menu-item>
                     </el-sub-menu>
                 </el-menu>
             </el-scrollbar>
@@ -166,8 +174,10 @@ import {
     HomeFilled,
     List,
     Menu as MenuIcon,
+    Monitor,
     OfficeBuilding,
     Setting,
+    Tickets,
     User as UserIcon,
 } from "@element-plus/icons-vue";
 import UserMenu from "@/components/core/layouts/user-menu/index.vue";

@@ -26,6 +26,8 @@ export default {
         dict: "Dictionaries",
         eda: "EDA",
         edaList: "EDA Tools",
+        edaServer: "Servers",
+        edaScript: "Scripts",
         logout: "Sign out",
     },
     header: {

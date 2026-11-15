@@ -15,6 +15,10 @@
 | `sys_dict_type.sql` | 字典类型表 |
 | `sys_dict_data.sql` | 字典数据表 |
 | `eda_tool.sql` | EDA 工具清单表 |
+| `eda_tool_alter.sql` | `eda_tool` 增加 `server_id`（关联服务器，幂等） |
+| `eda_server.sql` | 服务器表（SSH 目标、加密凭据） |
+| `eda_script.sql` | EDA 服务操作脚本表（启动/停止/重启/状态/任务） |
+| `eda_script_run.sql` | 脚本执行历史表 |
 | `seed.sql` | 基础数据：公司（id=0）、数据中心（parent_id=0）、管理员、角色、菜单、字典、示例 EDA 工具 |
 | `init.sql` | 幂等统一初始化脚本（schema + 全部表 + seed） |
 

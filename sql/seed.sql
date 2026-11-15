@@ -26,7 +26,9 @@ VALUES (100, 0, 'dashboard', '仪表盘', 'MENU', '/dashboard', 'dashboard/index
        (204, 200, 'system:dept', '部门管理', 'MENU', '/system/dept', 'system/dept/index', 'system:dept:list', 'ri:building-2-line', 4, 1),
        (205, 200, 'system:dict', '字典管理', 'MENU', '/system/dict', 'system/dict/index', 'system:dict:list', 'ri:book-2-line', 5, 1),
        (300, 0, 'eda', 'EDA管理', 'DIR', '/eda', NULL, NULL, 'ri:cpu-line', 3, 1),
-       (301, 300, 'eda:list', 'EDA列表', 'MENU', '/eda/list', 'eda/list/index', 'eda:list', 'ri:list-check', 1, 1)
+       (301, 300, 'eda:list', 'EDA列表', 'MENU', '/eda/list', 'eda/list/index', 'eda:list', 'ri:list-check', 1, 1),
+       (302, 300, 'eda:server', '服务器管理', 'MENU', '/eda/server', 'eda/server/index', 'eda:server:list', 'ri:server-line', 2, 1),
+       (303, 300, 'eda:script', '脚本管理', 'MENU', '/eda/script', 'eda/script/index', 'eda:script:list', 'ri:terminal-box-line', 3, 1)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO ems.sys_dict_type (id, dict_type, dict_name, status, remark)
@@ -67,3 +69,6 @@ SELECT setval(pg_get_serial_sequence('ems.sys_dept', 'id'), COALESCE(MAX(id), 0)
 SELECT setval(pg_get_serial_sequence('ems.sys_dict_type', 'id'), COALESCE(MAX(id), 0) + 1, false) FROM ems.sys_dict_type;
 SELECT setval(pg_get_serial_sequence('ems.sys_dict_data', 'id'), COALESCE(MAX(id), 0) + 1, false) FROM ems.sys_dict_data;
 SELECT setval(pg_get_serial_sequence('ems.eda_tool', 'id'), COALESCE(MAX(id), 0) + 1, false) FROM ems.eda_tool;
+SELECT setval(pg_get_serial_sequence('ems.eda_server', 'id'), COALESCE(MAX(id), 0) + 1, false) FROM ems.eda_server;
+SELECT setval(pg_get_serial_sequence('ems.eda_script', 'id'), COALESCE(MAX(id), 0) + 1, false) FROM ems.eda_script;
+SELECT setval(pg_get_serial_sequence('ems.eda_script_run', 'id'), COALESCE(MAX(id), 0) + 1, false) FROM ems.eda_script_run;

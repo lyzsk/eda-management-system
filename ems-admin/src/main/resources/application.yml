@@ -28,6 +28,15 @@ ems:
     secret: ${JWT_SECRET:ems-dev-only-secret-0123456789abcdef}
     issuer: ems
     access-token-ttl-minutes: ${JWT_TTL_MINUTES:480}
+  remote:
+    max-output-bytes: 65536
+    max-parallel: 4
+    ssh:
+      # 统一部署密钥, 私钥只来自部署配置, 不进数据库, 不出现在页面
+      default-username: ${EMS_SSH_USER:}
+      private-key-file: ${EMS_SSH_KEY_FILE:}
+      private-key: ${EMS_SSH_PRIVATE_KEY:}
+      private-key-passphrase: ${EMS_SSH_KEY_PASSPHRASE:}
 
 logging:
   level:

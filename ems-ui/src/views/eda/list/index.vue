@@ -30,6 +30,11 @@
             <el-table-column prop="toolName" label="工具名称" min-width="180" />
             <el-table-column prop="toolType" label="类型" width="110" />
             <el-table-column prop="host" label="主机" min-width="130" />
+            <el-table-column label="服务器" min-width="140">
+                <template #default="{ row }">
+                    {{ serverLabel(row.serverId) }}
+                </template>
+            </el-table-column>
             <el-table-column prop="osType" label="系统" width="100" />
             <el-table-column prop="toolVersion" label="版本" width="120" />
             <el-table-column label="License" width="100">
@@ -89,6 +94,24 @@
                     <el-col :span="12">
                         <el-form-item label="主机">
                             <el-input v-model="form.host" placeholder="eda-linux-01" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="服务器">
+                            <el-select
+                                v-model="form.serverId"
+                                clearable
+                                filterable
+                                placeholder="选择服务器（脚本执行依赖）"
+                                style="width: 100%"
+                            >
+                                <el-option
+                                    v-for="server in servers"
+                                    :key="server.id"
+                                    :label="`${server.serverCode}（${server.host}）`"
+                                    :value="server.id"
+                                />
+                            </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -167,11 +190,13 @@ import {
     createEdaTool,
     deleteEdaTool,
     listEdaTools,
+    listServers,
     updateEdaTool,
 } from "@/api/eda";
-import type { EdaTool } from "@/types/system";
+import type { EdaServer, EdaTool } from "@/types/system";
 
 const tools = ref<EdaTool[]>([]);
+const servers = ref<EdaServer[]>([]);
 const keyword = ref("");
 const loading = ref(false);
 const saving = ref(false);
@@ -214,10 +239,20 @@ function licenseTag(value?: string) {
 async function load() {
     loading.value = true;
     try {
-        tools.value = await listEdaTools(keyword.value || undefined);
+        const [toolRows, serverRows] = await Promise.all([
+            listEdaTools(keyword.value || undefined),
+            listServers(),
+        ]);
+        tools.value = toolRows;
+        servers.value = serverRows;
     } finally {
         loading.value = false;
     }
+}
+
+function serverLabel(serverId?: string) {
+    const server = servers.value.find((item) => item.id === serverId);
+    return server ? server.serverCode : "-";
 }
 
 function reset() {
@@ -231,6 +266,7 @@ function openCreate() {
         toolName: "",
         toolType: "",
         host: "",
+        serverId: undefined,
         osType: "Linux",
         toolVersion: "",
         licenseStatus: "UNKNOWN",
@@ -248,6 +284,7 @@ function openEdit(row: EdaTool) {
         toolName: row.toolName,
         toolType: row.toolType ?? "",
         host: row.host ?? "",
+        serverId: row.serverId ?? undefined,
         osType: row.osType ?? "Linux",
         toolVersion: row.toolVersion ?? "",
         licenseStatus: row.licenseStatus ?? "UNKNOWN",

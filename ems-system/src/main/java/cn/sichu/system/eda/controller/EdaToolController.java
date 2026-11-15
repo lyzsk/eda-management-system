@@ -3,7 +3,9 @@ package cn.sichu.system.eda.controller;
 import cn.sichu.common.exception.BusinessException;
 import cn.sichu.common.result.Result;
 import cn.sichu.common.result.ResultCode;
+import cn.sichu.system.eda.entity.EdaScript;
 import cn.sichu.system.eda.entity.EdaTool;
+import cn.sichu.system.eda.mapper.EdaScriptMapper;
 import cn.sichu.system.eda.mapper.EdaToolMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ import java.util.List;
 public class EdaToolController {
 
     private final EdaToolMapper toolMapper;
+
+    private final EdaScriptMapper scriptMapper;
 
     @GetMapping
     public Result<List<EdaTool>> list(@RequestParam(required = false) String keyword) {
@@ -67,6 +71,11 @@ public class EdaToolController {
         EdaTool existing = toolMapper.selectById(id);
         if (existing == null) {
             throw new BusinessException(ResultCode.NOT_FOUND, "EDA 工具不存在");
+        }
+        Long scripts = scriptMapper.selectCount(
+            new LambdaQueryWrapper<EdaScript>().eq(EdaScript::getToolId, id));
+        if (scripts != null && scripts > 0) {
+            throw new BusinessException(ResultCode.BUSINESS_ERROR, "该工具下还有脚本，不能删除");
         }
         toolMapper.deleteById(id);
         return Result.success();
